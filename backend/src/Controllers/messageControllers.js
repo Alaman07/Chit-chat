@@ -65,7 +65,6 @@ export const sendMessage = async (req, res) => {
     await newMessage.save();
 
     const receiverSocketId = getReceiverSocketId(receiverId);
-<<<<<<< HEAD
     const senderSocketId = getReceiverSocketId(senderId);
 
     if (receiverSocketId) {
@@ -74,11 +73,6 @@ export const sendMessage = async (req, res) => {
     if (senderSocketId && senderSocketId !== receiverSocketId) {
       io.to(senderSocketId).emit("newMessage", newMessage);
     }
-=======
-    if (receiverSocketId) {
-      io.to(receiverSocketId).emit("newMessage", newMessage);
-    }
->>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
 
     res.status(201).json(newMessage);
   } catch (error) {
