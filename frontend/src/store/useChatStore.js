@@ -35,22 +35,29 @@ export const useChatStore = create((set, get) => ({
   },
   sendMessage: async (messageData) => {
     const { selectedUser, messages } = get();
+    const { authUser } = useAuthStore.getState();
+    let res;
     try {
-      let res;
-      if(selectedUser._id === "ai"){
+      if (selectedUser._id === "ai") {
+        // Add user's message instantly
+        const userMsg = {
+          _id: Date.now().toString() + "-user",
+          text: messageData.text,
+          senderId: authUser._id,
+          receiverId: "ai",
+          createdAt: new Date(),
+          image: messageData.image || null,
+        };
+        set({ messages: [...messages, userMsg] });
+        // Get AI reply
         res = await axiosInstance.post(`/ai/send`, messageData);
-        // If response is an array, add both user and AI messages
-        if (Array.isArray(res.data)) {
-          set({ messages: [...messages, ...res.data] });
-        } else {
-          set({ messages: [...messages, res.data] });
-        }
+        set({ messages: [...get().messages, res.data] });
       } else {
-        res = await axiosInstance.post(`/message/send/${selectedUser._id}`, messageData);
-        set({ messages: [...messages, res.data] });
+        // For real users, just send, let socket handle adding the message
+        await axiosInstance.post(`/message/send/${selectedUser._id}`, messageData);
       }
     } catch (error) {
-      toast.error(error.response?.data?.message || "Failed to send message");
+      toast.error(error.response.data.message);
     }
   },
 
@@ -61,8 +68,11 @@ export const useChatStore = create((set, get) => ({
     const socket = useAuthStore.getState().socket;
 
     socket.on("newMessage", (newMessage) => {
-      const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
-      if (!isMessageSentFromSelectedUser) return;
+      const { authUser } = useAuthStore.getState();
+      const isRelevant =
+        (newMessage.senderId === selectedUser._id && newMessage.receiverId === authUser._id) ||
+        (newMessage.senderId === authUser._id && newMessage.receiverId === selectedUser._id);
+      if (!isRelevant) return;
 
       set({
         messages: [...get().messages, newMessage],

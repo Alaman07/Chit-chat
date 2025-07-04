@@ -29,7 +29,7 @@ export const handleAiReq = async (req, res) => {
                 createdAt: new Date(),
                 image: null
             };
-            return res.status(200).json([userMsg, aiMsg]);
+            return res.status(200).json(aiMsg);
         }
 
         // Get AI response for allowed user
@@ -49,7 +49,7 @@ export const handleAiReq = async (req, res) => {
             createdAt: new Date(),
             image: null
         };
-        res.status(200).json([userMsg, aiMsg]);
+        res.status(200).json(aiMsg);
     } catch (err) {
         console.error("AI error:", err);
         res.status(500).json({ error: "Internal server error" });
