@@ -25,10 +25,7 @@ app.use(cors({
 
 app.use('/api/auth',authRoutes);
 app.use('/api/message',messageRoutes);
-<<<<<<< HEAD
 app.use('/api/ai',aiRoutes);
-=======
->>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);

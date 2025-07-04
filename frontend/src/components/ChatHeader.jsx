@@ -21,15 +21,11 @@ const ChatHeader = () => {
           <div>
             <h3 className="font-medium">{selectedUser.fullName}</h3>
             <p className="text-sm text-base-content/70">
-<<<<<<< HEAD
               {selectedUser._id === "ai"
                 ? "Online"
                 : onlineUsers.includes(selectedUser._id)
                   ? "Online"
                   : "Offline"}
-=======
-              {onlineUsers.includes(selectedUser._id) ? "Online" : "Offline"}
->>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
             </p>
           </div>
         </div>

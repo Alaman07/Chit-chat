@@ -35,7 +35,6 @@ export const useChatStore = create((set, get) => ({
   },
   sendMessage: async (messageData) => {
     const { selectedUser, messages } = get();
-<<<<<<< HEAD
     const { authUser } = useAuthStore.getState();
     let res;
     try {
@@ -57,11 +56,6 @@ export const useChatStore = create((set, get) => ({
         // For real users, just send, let socket handle adding the message
         await axiosInstance.post(`/message/send/${selectedUser._id}`, messageData);
       }
-=======
-    try {
-      const res = await axiosInstance.post(`/message/send/${selectedUser._id}`, messageData);
-      set({ messages: [...messages, res.data] });
->>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
     } catch (error) {
       toast.error(error.response.data.message);
     }
@@ -74,16 +68,11 @@ export const useChatStore = create((set, get) => ({
     const socket = useAuthStore.getState().socket;
 
     socket.on("newMessage", (newMessage) => {
-<<<<<<< HEAD
       const { authUser } = useAuthStore.getState();
       const isRelevant =
         (newMessage.senderId === selectedUser._id && newMessage.receiverId === authUser._id) ||
         (newMessage.senderId === authUser._id && newMessage.receiverId === selectedUser._id);
       if (!isRelevant) return;
-=======
-      const isMessageSentFromSelectedUser = newMessage.senderId === selectedUser._id;
-      if (!isMessageSentFromSelectedUser) return;
->>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
 
       set({
         messages: [...get().messages, newMessage],
