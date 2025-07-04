@@ -3,10 +3,7 @@ import dotenv from 'dotenv';
 import cookieParser from 'cookie-parser';
 import authRoutes from './Routes/authRoutes.js';
 import messageRoutes from './Routes/messageRoutes.js'
-<<<<<<< HEAD
 import aiRoutes from './Routes/aiRoutes.js'
-=======
->>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
 import cors from 'cors';
 import { connectDB } from './lib/db.js';
 import { app, server } from './lib/socket.js' 
