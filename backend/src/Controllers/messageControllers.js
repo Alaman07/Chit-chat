@@ -21,13 +21,10 @@ export const getMessages = async (req, res) => {
     const { id: userToChatId } = req.params;
     const myId = req.user._id;
 
-<<<<<<< HEAD
     if (userToChatId === "ai") {
       return res.status(200).json([]); // or fetch from a different collection if you store AI chats
     }
 
-=======
->>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
     const messages = await Message.find({
       $or: [
         { senderId: myId, receiverId: userToChatId },
