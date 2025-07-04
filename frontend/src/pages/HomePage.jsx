@@ -13,7 +13,10 @@ const HomePage = () => {
             <Sidebar />
 
             {!selectedUser? <NoChatSelected /> : <ChatContainer />}
+<<<<<<< HEAD
             
+=======
+>>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
 
           </div>
         </div>

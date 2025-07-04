@@ -21,10 +21,13 @@ export const getMessages = async (req, res) => {
     const { id: userToChatId } = req.params;
     const myId = req.user._id;
 
+<<<<<<< HEAD
     if (userToChatId === "ai") {
       return res.status(200).json([]); // or fetch from a different collection if you store AI chats
     }
 
+=======
+>>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
     const messages = await Message.find({
       $or: [
         { senderId: myId, receiverId: userToChatId },
@@ -62,6 +65,7 @@ export const sendMessage = async (req, res) => {
     await newMessage.save();
 
     const receiverSocketId = getReceiverSocketId(receiverId);
+<<<<<<< HEAD
     const senderSocketId = getReceiverSocketId(senderId);
 
     if (receiverSocketId) {
@@ -70,6 +74,11 @@ export const sendMessage = async (req, res) => {
     if (senderSocketId && senderSocketId !== receiverSocketId) {
       io.to(senderSocketId).emit("newMessage", newMessage);
     }
+=======
+    if (receiverSocketId) {
+      io.to(receiverSocketId).emit("newMessage", newMessage);
+    }
+>>>>>>> c4f6599caf5f4ac015c5b4b34915cf535624d375
 
     res.status(201).json(newMessage);
   } catch (error) {
