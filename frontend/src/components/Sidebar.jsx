@@ -46,7 +46,7 @@ const Sidebar = () => {
 
       <div className="overflow-y-auto w-full py-3">
         <button 
-            onClick={() => setSelectedUser({_id: "ai", fullName: "Alfiya AI", profilePic: "/avatar.png"})}
+            onClick={() => setSelectedUser({_id: "ai", fullName: "Jenny AI", profilePic: "/avatar.png"})}
             className={`
               w-full p-3 flex items-center gap-3
               hover:bg-base-300 transition-colors
