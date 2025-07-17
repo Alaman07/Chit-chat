@@ -37,7 +37,7 @@ export const handleAiReq = async (req, res) => {
             model: "gemini-2.5-flash",
             contents: [{ role: "user", parts: [{ text }] }],
             config: {
-                systemInstruction: "You are my girlfriend.",
+                systemInstruction: "You are my friend who is a girl.",
             },
         });
         const aiText = response?.candidates?.[0]?.content?.parts?.[0]?.text || "Sorry, I couldn't generate a response.";
